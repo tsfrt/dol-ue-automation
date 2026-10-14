@@ -1,0 +1,16 @@
+{
+  "name": "dol_fraud_detection",
+  "catalog": "lanl",
+  "schema": "dol_ue_silver",
+  "serverless": true,
+  "continuous": false,
+  "development": true,
+  "channel": "PREVIEW",
+  "configuration": {
+    "pipelines.numUpdateRetryAttempts": "0",
+    "pipelines.maxFlowRetryAttempts": "0"
+  },
+  "libraries": [
+    {"glob": {"include": "/Workspace/Users/thomas.seufert@databricks.com/dol_fraud_pipeline/**"}}
+  ]
+}

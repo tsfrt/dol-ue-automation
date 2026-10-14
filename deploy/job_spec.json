@@ -1,0 +1,45 @@
+{
+  "name": "ui-claims-generator",
+  "description": "Synthetic UI claims generator — pushes events to Zerobus for the DOL UE fraud detection demo.",
+  "tags": {
+    "project": "dol-ue-automation",
+    "component": "generator"
+  },
+  "tasks": [
+    {
+      "task_key": "generate_week",
+      "description": "Generate one compressed week of UI claim events and send to Zerobus.",
+      "spark_python_task": {
+        "python_file": "/Workspace/Users/thomas.seufert@databricks.com/scripts/run_generator.py",
+        "parameters": [
+          "--catalog", "lanl",
+          "--schema", "dol_ue_bronze",
+          "--seed", "42",
+          "--fraud-rate", "0.08",
+          "--sim-duration", "300",
+          "--zerobus-endpoint", "7474656503943141.zerobus.us-east-1.cloud.databricks.com",
+          "--workspace-url", "https://fevm-serverless-stable-blj52t.cloud.databricks.com",
+          "--client-id", "db3c4c7b-ad32-4593-8a25-4baff80032a1",
+          "--secret-scope", "dol-ue-demo"
+        ]
+      },
+      "environment_key": "default",
+      "timeout_seconds": 1800,
+      "max_retries": 1
+    }
+  ],
+  "environments": [
+    {
+      "environment_key": "default",
+      "spec": {
+        "client": "1",
+        "dependencies": [
+          "databricks-zerobus-ingest-sdk>=1.0.0",
+          "databricks-sdk",
+          "faker"
+        ]
+      }
+    }
+  ],
+  "format": "MULTI_TASK"
+}
